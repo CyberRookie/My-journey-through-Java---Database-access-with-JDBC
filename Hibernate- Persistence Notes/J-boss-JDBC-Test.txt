@@ -1,0 +1,30 @@
+14.6. Creating a JDBC client
+When testing a newly configured datasource we suggest using some very basic JDBC client code embedded in a JSP page. First of all, you should create an exploded WAR archive under the deploy directory which is simply a folder named "jdbcclient.war". In this folder, create a text document named client.jsp and paste the code below:
+
+<%@page contentType="text/html"
+ import="java.util.*,javax.naming.*,javax.sql.DataSource,java.sql.*"
+ %>
+ <%
+   
+  DataSource ds = null;
+  Connection con = null; 
+  PreparedStatement pr = null; 
+  InitialContext ic; 
+  try {
+  ic = new InitialContext();
+  ds = (DataSource)ic.lookup( "java:/DefaultDS" );
+  con = ds.getConnection(); 
+  pr = con.prepareStatement("SELECT USERID, PASSWD FROM JMS_USERS");
+  ResultSet rs = pr.executeQuery();
+  while (rs.next()) {
+  out.println("<br> " +rs.getString("USERID") + " | " +rs.getString("PASSWD")); 
+  }
+  rs.close();
+  pr.close();
+  }catch(Exception e){
+  out.println("Exception thrown " +e); 
+  }finally{
+  if(con != null){
+  con.close();
+ }      
+} %> 

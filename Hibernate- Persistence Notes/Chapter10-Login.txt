@@ -1,0 +1,5 @@
+10/10/20 2:00PM - RequestScope information is available to all pages processing the same request. Chapter 10-1
+
+User Info example in chapter 8 userinputinfo page has examples. userinfovalidate and userinfovalid are good login/registration pages. Using a loginBean to pass between forms.
+Use authenticate, validate??
+check out Chapter 10-2 & 3
